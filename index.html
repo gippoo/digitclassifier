@@ -9,9 +9,10 @@
 <script>
 	async function f() {
 		const mnist = await tf.loadModel('https://gippoo.github.io/digitclassifier/mnist1.json');
+        return mnist
 	}
     
-    f();
+    const mnist = f();
     
 	function setup() {
   		var canv = createCanvas(150, 150);
