@@ -7,12 +7,7 @@
 </head>
 
 <script>
-	async function f() {
-		const mnist = await tf.loadModel('https://gippoo.github.io/digitclassifier/mnist1.json');
-        return mnist
-	}
-    
-    const mnist = f();
+	const mnist = await tf.loadModel('https://gippoo.github.io/digitclassifier/mnist1.json');
     console.log(mnist)
     
 	function setup() {
