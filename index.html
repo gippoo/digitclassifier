@@ -13,6 +13,7 @@
 	}
     
     const mnist = f();
+    console.log(mnist)
     
 	function setup() {
   		var canv = createCanvas(150, 150);
@@ -44,8 +45,6 @@
         
         const prediction = mnist.predict(inputs);
         console.log(prediction)
-        
-        document.getElementById("array").innerHTML = "View console log"+			" (F12) to see image data";
 	}
     
     function erase() {
