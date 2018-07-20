@@ -26,7 +26,6 @@
     	var imgData = get()
         imgData.resize(28,28);
 
-        console.log(imgData);
         imgData.loadPixels();
         
         var i;
@@ -36,10 +35,8 @@
         
         var inputs = tf.tensor2d([idata]);
         
-        console.log(mnist);
-        
         const prediction = mnist.predict(inputs);
-        console.log(prediction);
+        prediction.print();
 	}
     
     function erase() {
