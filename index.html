@@ -2,111 +2,58 @@
 <html>
 <head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.0.3/math.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
 </head>
 
 <script>
-	//credit: https://stackoverflow.com/questions/2368784/draw-on-html5-canvas-using-a-mouse
-    var c, ctx, flag = false,
-        prevX = 0,
-        currX = 0,
-        prevY = 0,
-        currY = 0,
-        dot_flag = false;
-
-    function init() {
-        canvas = document.getElementById('can');
-        ctx = canvas.getContext("2d");
-        w = canvas.width;
-        h = canvas.height;
+	function setup() {
+  		var canv = createCanvas(150, 150);
+  		background(0,0,0,0);
+        canv.parent("canholder");
+	}
     
-        canvas.addEventListener("mousemove", function (e) {
-            findxy('move', e)
-        }, false);
-        canvas.addEventListener("mousedown", function (e) {
-            findxy('down', e)
-        }, false);
-        canvas.addEventListener("mouseup", function (e) {
-            findxy('up', e)
-        }, false);
-        canvas.addEventListener("mouseout", function (e) {
-            findxy('out', e)
-        }, false);
-    }
-    
-
-	function draw() {
-        ctx.beginPath();
-        ctx.moveTo(prevX, prevY);
-        ctx.lineTo(currX, currY);
-        ctx.strokeStyle = 'black';
-        ctx.lineWidth = 3;
-        ctx.stroke();
-        ctx.closePath();
-    }
-
-	function findxy(res, e) {
-        if (res == 'down') {
-            prevX = currX;
-            prevY = currY;
-            currX = e.clientX - canvas.offsetLeft;
-            currY = e.clientY - canvas.offsetTop;
-    
-            flag = true;
-            dot_flag = true;
-            if (dot_flag) {
-                ctx.beginPath();
-                ctx.fillStyle = 'black';
-                ctx.fillRect(currX, currY, 2, 2);
-                ctx.closePath();
-                dot_flag = false;
-            }
-        }
-        if (res == 'up' || res == "out") {
-            flag = false;
-        }
-        if (res == 'move') {
-            if (flag) {
-                prevX = currX;
-                prevY = currY;
-                currX = e.clientX - canvas.offsetLeft;
-                currY = e.clientY - canvas.offsetTop;
-                draw();
-            }
+    function draw() {
+    	strokeWeight(5);
+        if (mouseIsPressed) {
+        	line(pmouseX, pmouseY, mouseX, mouseY);
         }
     }
-    
-    function erase() {
-		ctx.clearRect(0,0,150,150);
-    }
-    
     
     function getdata() {
     	var idata = [];
-    	var imgData = ctx.getImageData(0, 0, 150, 150);
-        var i;
-        for (i = 3; i < imgData.data.length; i += 4) {
-        	idata.push(imgData.data[i]);
-        }
-        idata = math.reshape(idata, [150,150]);
-        
-        console.log(idata)
-        
-        document.getElementById("array").innerHTML = "View console log (F12)"
-        +" to see image data";
-    }
+    	var imgData = get()
+        imgData.resize(28,28);
 
+        console.log(imgData);
+        imgData.loadPixels();
+        
+        var i;
+        for (i = 3; i < imgData.pixels.length; i+=4) {
+        	idata.push(imgData.pixels[i]/255.0);
+        }
+        
+        idata = math.reshape(idata,[28,28]);
+        
+        console.log(idata);
+        
+        document.getElementById("array").innerHTML = "View console log"+			
+	" (F12) to see image data";
+	}
+    
+    function erase() {
+    	clear()
+    }
         
         
 </script>
 
-<body onload="init()">
+<body>
 
 <h1>Try Drawing</h1>
+<div id="canholder">
+</div>
 
-<canvas id="can" width="150" height="150" style="border:2px solid #d3d3d3;">
-Your browser does not support the HTML5 canvas tag.</canvas>
-<br>
-<button id="clear" onclick="erase()">Clear</button>
+<button id="clr" onclick="erase()">Clear</button>
 <button id="dataget" onclick="getdata()">Grab Data</button>
 <p id="array"></p>
 <p><i>Eventually this page will be able to classify digits after I learn how to use TensorFlow.js</i></p>
