@@ -38,7 +38,7 @@
         const prediction = mnist.predict(inputs);
         prediction.print();
 	    
-	prediction.argMax().print()
+	prediction.squeeze().argMax().print()
 	
 	}
     
