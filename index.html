@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <script>
 	//credit: https://stackoverflow.com/questions/2368784/draw-on-html5-canvas-using-a-mouse
     var c, ctx, flag = false,
@@ -72,9 +73,29 @@
     }
     
     function erase() {
-    	ctx.fillStyle = 'white';
-		ctx.fillRect(0,0,150,150);
+		ctx.clearRect(0,0,150,150);
     }
+    
+    
+    function getdata() {
+    	var idata = [];
+    	var imgData = ctx.getImageData(0, 0, 150, 150);
+        var i;
+        for (i = 3; i < imgData.data.length; i += 4) {
+        	idata.push(imgData.data[i]);
+        }
+        idata = idata.toString()
+        var txt = '';
+        while (idata.length > 0) {
+        	txt += idata.substring(0,150) + '\n';
+            idata = idata.substring(150);
+        }
+        
+        document.getElementById("array").innerHTML = txt;        
+    }
+
+        
+        
 </script>
 
 <body onload="init()">
@@ -85,5 +106,7 @@
 Your browser does not support the HTML5 canvas tag.</canvas>
 <br>
 <button id="clear" onclick="erase()">Clear</button>
+<button id="dataget" onclick="getdata()">Grab Data</button>
+<p id="array"></p>
 </body>
 </html>
