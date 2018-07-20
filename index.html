@@ -7,11 +7,6 @@
 </head>
 
 <script>
-	async function f() {
-		return await tf.loadModel('https://gippoo.github.io/digitclassifier/mnist1.json');
-	}
-    
-    
 	function setup() {
   		var canv = createCanvas(150, 150);
   		background(0,0,0,0);
@@ -25,8 +20,8 @@
         }
     }
     
-    function getdata() {
-    	const mnist = f();
+    async function getdata() {
+    	const mnist = await tf.loadModel('https://gippoo.github.io/digitclassifier/mnist1.json');
     	var idata = [];
     	var imgData = get()
         imgData.resize(28,28);
@@ -41,8 +36,10 @@
         
         var inputs = tf.tensor(idata);
         
+        console.log(mnist);
+        
         const prediction = mnist.predict(inputs);
-        console.log(prediction)
+        console.log(prediction);
 	}
     
     function erase() {
