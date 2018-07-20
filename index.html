@@ -11,8 +11,6 @@
 		return await tf.loadModel('https://gippoo.github.io/digitclassifier/mnist1.json');
 	}
     
-    const mnist = f();
-    console.log(mnist)
     
 	function setup() {
   		var canv = createCanvas(150, 150);
@@ -28,6 +26,7 @@
     }
     
     function getdata() {
+    	const mnist = f();
     	var idata = [];
     	var imgData = get()
         imgData.resize(28,28);
