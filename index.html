@@ -34,7 +34,7 @@
         	idata.push(imgData.pixels[i]/255.0);
         }
         
-        var inputs = tf.tensor(idata);
+        var inputs = tf.tensor2d([idata]);
         
         console.log(mnist);
         
