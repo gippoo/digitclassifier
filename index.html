@@ -36,22 +36,28 @@
         
         console.log(idata);
         
-        document.getElementById("array").innerHTML = "View console log"+			
-	" (F12) to see image data";
+        document.getElementById("array").innerHTML = "Scaled to 28x28. View console log (F12) to see data.";
 	}
     
     function erase() {
     	clear()
     }
         
-        
+
 </script>
 
 <body>
 
 <h1>Try Drawing</h1>
-<div id="canholder">
+<div id="canholder" style="border:1px solid #000000;">
 </div>
+
+<style>
+#canholder {
+    height: 150px;
+    width: 150px;
+}
+</style>
 
 <button id="clr" onclick="erase()">Clear</button>
 <button id="dataget" onclick="getdata()">Grab Data</button>
