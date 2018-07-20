@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.0.3/math.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.12.0"> </script>
+</head>
+
+<script>
+	async function f() {
+		const mnist = await tf.loadModel('https://gippoo.github.io/digitclassifier/mnist1.json');
+	}
+    
+    f();
+    
+	function setup() {
+  		var canv = createCanvas(150, 150);
+  		background(0,0,0,0);
+        canv.parent("canholder");
+	}
+    
+    function draw() {
+    	strokeWeight(5);
+        if (mouseIsPressed) {
+        	line(pmouseX, pmouseY, mouseX, mouseY);
+        }
+    }
+    
+    function getdata() {
+    	var idata = [];
+    	var imgData = get()
+        imgData.resize(28,28);
+
+        console.log(imgData);
+        imgData.loadPixels();
+        
+        var i;
+        for (i = 3; i < imgData.pixels.length; i+=4) {
+        	idata.push(imgData.pixels[i]/255.0);
+        }
+        
+        var inputs = tf.tensor(idata);
+        
+        const prediction = mnist.predict(inputs);
+        console.log(prediction)
+        
+        document.getElementById("array").innerHTML = "View console log"+			" (F12) to see image data";
+	}
+    
+    function erase() {
+    	clear()
+    }
+        
+
+</script>
+
+<body>
+
+<h1>Try Drawing</h1>
+<div id="canholder" style="border:1px solid #000000;">
+</div>
+
+<style>
+#canholder {
+    height: 150px;
+    width: 150px;
+}
+</style>
+
+<button id="clr" onclick="erase()">Clear</button>
+<button id="dataget" onclick="getdata()">Grab Data</button>
+<p id="array"></p>
+<p><i>Eventually this page will be able to classify digits after I learn how to use TensorFlow.js</i></p>
+</body>
+</html>
