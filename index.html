@@ -14,7 +14,7 @@
 	}
     
     function draw() {
-    	strokeWeight(6);
+    	strokeWeight(8);
         if (mouseIsPressed) {
         	line(pmouseX, pmouseY, mouseX, mouseY);
         }
@@ -35,10 +35,14 @@
         
         var inputs = tf.tensor2d([idata]);
         
-        const prediction = mnist.predict(inputs);
+        var prediction = mnist.predict(inputs);
         prediction.print();
 	    
-	prediction.squeeze().argMax().print()
+	prediction.squeeze().argMax().print();
+	    
+	var result = prediction.squeeze().argMax().dataSync();
+	    
+	document.getElementById("result").innerHTML = "Predicted number: " + var;
 	
 	}
     
@@ -64,7 +68,7 @@
 
 <button id="clr" onclick="erase()">Clear</button>
 <button id="dataget" onclick="getdata()">Grab Data</button>
-<p id="array"></p>
+<p id="result"></p>
 <p><i>Eventually this page will be able to classify digits after I learn how to use TensorFlow.js</i></p>
 </body>
 </html>
