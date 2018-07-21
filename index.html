@@ -18,9 +18,14 @@
         	line(pmouseX, pmouseY, mouseX, mouseY);
         }
     }
-    
-    async function getdata() {
-    	const mnist = await tf.loadModel('https://gippoo.github.io/digitclassifier/mnist1.json');
+    async function modelload() {
+	return await tf.loadModel('https://gippoo.github.io/digitclassifier/mnist1.json');
+    }
+	
+    const mnist2 = modelload();
+	
+    async function getdata(x) {
+    	const mnist = x;
     	var idata = [];
     	var imgData = get()
         imgData.resize(28,28);
@@ -67,7 +72,7 @@
 </style>
 
 <button id="clr" onclick="erase()">Clear</button>
-<button id="dataget" onclick="getdata()">Predict</button>
+<button id="dataget" onclick="getdata(mnist2)">Predict</button>
 <p id="result"></p>
 <p><b>NOTE: There are issues with drawing if you are on a mobile device.</b>
 <br><i>It is a simple neural network so there are some issues with accuracy. It helps to draw clearly and to center the number. 
