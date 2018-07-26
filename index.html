@@ -43,7 +43,11 @@
 	    
 	document.getElementById("result").innerHTML = "Predicted number: " + result;
 	
-	}
+    }
+
+    async function cleanpredict() {
+	    tf.tidy(getdata());
+    }
     
     function erase() {
     	clear()
@@ -67,7 +71,7 @@
 </style>
 
 <button id="clr" onclick="erase()">Clear</button>
-<button id="dataget" onclick="getdata()">Predict</button>
+<button id="dataget" onclick="cleanpredict()">Predict</button>
 <p id="result"></p>
 <p><b>NOTE: There may be issues with drawing if you are on a mobile device.</b>
 <br><i>It is a simple neural network so there are some issues with accuracy. It helps to draw clearly and to center the number.</i> 
