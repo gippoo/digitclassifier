@@ -42,8 +42,7 @@
 	var result = prediction.squeeze().argMax().dataSync();
 	    
 	document.getElementById("result").innerHTML = "Predicted number: " + result;
-		
-	tf.reset_default_graph();
+	
 	    
 	console.log(tf.memory().numTensors);
 	    
