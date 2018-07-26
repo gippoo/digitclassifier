@@ -19,14 +19,8 @@
         }
     }
 	
-   async function loadmnist() {
-	const model = await tf.loadModel('https://gippoo.github.io/digitclassifier/mnist1.json');
-	return model;
-   }
-	
-   const mnist = loadmnist();
-    
     async function getdata() {
+	const mnist = await tf.loadModel('https://gippoo.github.io/digitclassifier/mnist1.json');
     	var idata = [];
     	var imgData = get()
         imgData.resize(28,28);
@@ -38,6 +32,7 @@
         	idata.push(imgData.pixels[i]/255.0);
         }
         
+	    
 	tf.tidy(() => {
 	    
         var inputs = tf.tensor2d([idata]);
@@ -52,6 +47,8 @@
 	document.getElementById("result").innerHTML = "Predicted number: " + result;
 		
 	});
+	    
+	console.log(tf.memory().numTensors);
 	    
     }
 
