@@ -18,9 +18,15 @@
         	line(pmouseX, pmouseY, mouseX, mouseY);
         }
     }
+	
+   async function loadmnist() {
+	const model = await tf.loadModel('https://gippoo.github.io/digitclassifier/mnist1.json');
+	return model;
+   }
+	
+   var mnist = loadmnist();
     
     async function getdata() {
-    	const mnist = await tf.loadModel('https://gippoo.github.io/digitclassifier/mnist1.json');
     	var idata = [];
     	var imgData = get()
         imgData.resize(28,28);
@@ -32,6 +38,8 @@
         	idata.push(imgData.pixels[i]/255.0);
         }
         
+	tf.tidy(() => {
+	    
         var inputs = tf.tensor2d([idata]);
         
         var prediction = mnist.predict(inputs);
@@ -42,12 +50,11 @@
 	var result = prediction.squeeze().argMax().dataSync();
 	    
 	document.getElementById("result").innerHTML = "Predicted number: " + result;
-	
+		
+	});
+	    
     }
 
-    async function cleanpredict() {
-	    tf.tidy(getdata());
-    }
     
     function erase() {
     	clear()
@@ -71,7 +78,7 @@
 </style>
 
 <button id="clr" onclick="erase()">Clear</button>
-<button id="dataget" onclick="cleanpredict()">Predict</button>
+<button id="dataget" onclick="getdata()">Predict</button>
 <p id="result"></p>
 <p><b>NOTE: There may be issues with drawing if you are on a mobile device.</b>
 <br><i>It is a simple neural network so there are some issues with accuracy. It helps to draw clearly and to center the number.</i> 
