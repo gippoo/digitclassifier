@@ -18,19 +18,12 @@
         	line(pmouseX, pmouseY, mouseX, mouseY);
         }
     }
-    async function modelload() {
-	return await tf.loadModel('https://gippoo.github.io/digitclassifier/mnist1.json');
-    }
 	
-    const mnist2 = modelload();
-	
-    async function getdata(x) {
-    	await const mnist = x;
-	console.log(mnist);
+    async function getdata() {
+	const mnist = await tf.loadModel('https://gippoo.github.io/digitclassifier/mnist1.json');
     	var idata = [];
     	var imgData = get()
         imgData.resize(28,28);
-
         imgData.loadPixels();
         
         var i;
@@ -43,19 +36,20 @@
         var prediction = mnist.predict(inputs);
         prediction.print();
 	    
-	prediction.squeeze().argMax().print();
-	    
 	var result = prediction.squeeze().argMax().dataSync();
 	    
 	document.getElementById("result").innerHTML = "Predicted number: " + result;
 	
-	}
+	tf.disposeVariables();
+	    
+	console.log(tf.memory().numTensors);
+	    
+    }
     
     function erase() {
     	clear()
     }
         
-
 </script>
 
 <body>
@@ -73,11 +67,12 @@
 </style>
 
 <button id="clr" onclick="erase()">Clear</button>
-<button id="dataget" onclick="getdata(mnist2)">Predict</button>
+<button id="dataget" onclick="getdata()">Predict</button>
 <p id="result"></p>
-<p><b>NOTE: There are issues with drawing if you are on a mobile device.</b>
-<br><i>It is a simple neural network so there are some issues with accuracy. It helps to draw clearly and to center the number. 
-I will be training and implementing a convolutional network for better performance.</i>
+<p><b>NOTE: There may be issues with drawing if you are on a mobile device.</b>
+<br><i>It is a simple neural network so there are some issues with accuracy. It helps to draw clearly and to center the number.</i> 
+<br>I have trained a convolutional network for this same task <a href="https://gippoo.github.io/digitclassifier2/">here</a>. It is
+interesting to compare the performance of both networks.
 </p>
 </body>
 </html>
