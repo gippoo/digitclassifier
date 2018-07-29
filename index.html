@@ -5,7 +5,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.12.0"> </script>
 </head>
 	
-<body>
+
 <script>
     async function init() {
 	mnist = await tf.loadModel('https://gippoo.github.io/digitclassifier/mnist1.json');
@@ -22,7 +22,8 @@ function check() {
 
 
 </script>
-
+	
+<body>
 	<button id='check' onclick='check()'>Check></button>
 	
 	
