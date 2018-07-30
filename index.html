@@ -18,11 +18,10 @@
         canv.parent("canholder");
 	}
     
-    function draw() {
-    	strokeWeight(14);
-        if (mouseIsPressed) {
-        	line(pmouseX, pmouseY, mouseX, mouseY);
-        }
+    function touchMoved() {
+	strokeWeight(14);
+        line(pmouseX, pmouseY, mouseX, mouseY);
+	    return false;
     }
 	
     function getdata() {
@@ -53,7 +52,7 @@
     }
     
     function erase() {
-    	clear()
+    	background(0,0,0,0);
     }
         
 </script>
