@@ -3,12 +3,6 @@
 <head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.12.0"> </script>
-<style>
-#canholder {
-    height: 150px;
-    width: 150px;
-}
-</style>
 </head>
 
 <script>
@@ -18,10 +12,16 @@
 	
 	init();
 	
+var w = 150;
+var h = 150;
+var canv;	
+	
 	function setup() {
-  		var canv = createCanvas(150, 150);
+  		canv = createCanvas(150, 150);
+		canv.size(150,150);
   		background(255,255,255);
-        canv.parent("canholder");
+        	canv.parent("canholder");
+		canv.style("border:1px solid #000000;")
 	}
     
     function touchMoved() {
