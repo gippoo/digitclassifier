@@ -6,7 +6,7 @@
 	</head>
 
 
-	<body>
+	<body onload="init();">
 		<h1>Try Drawing a Number</h1>
 		<p id="canholder"></p>
 		<p>Click 'Predict' to have the computer guess what number you drew. (Only single digit numbers pls.)</p>
@@ -38,8 +38,6 @@
 			mnist = await tf.loadModel('https://gippoo.github.io/digitclassifier/mnist1.json');
 		}
 	
-		init();
-		
 	</script>
 	
 
